@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.test.shop.mapping.CategoryMapper" >
+  <resultMap id="BaseResultMap" type="cn.test.shop.model.Category" >
+    <id column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="cname" property="cname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cid, cname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from category
+    where cid = #{cid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from category
+    where cid = #{cid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.test.shop.model.Category" >
+    insert into category (cid, cname)
+    values (#{cid,jdbcType=INTEGER}, #{cname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.test.shop.model.Category" >
+    insert into category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="cname != null" >
+        cname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="cname != null" >
+        #{cname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.test.shop.model.Category" >
+    update category
+    <set >
+      <if test="cname != null" >
+        cname = #{cname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.test.shop.model.Category" >
+    update category
+    set cname = #{cname,jdbcType=VARCHAR}
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  
+<!--  查询全部数据 -->
+  <select id="findAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from category
+  </select>
+  
+  
+  <resultMap type="cn.test.shop.model.Category" id="categoryVos">
+  	 	<id column="cid" property="cid" jdbcType="INTEGER" />
+    	<result column="cname" property="cname" jdbcType="VARCHAR" />
+  	 <!-- 
+		collection：对关联查询到多条记录映射到集合对象中
+		property：将关联查询到多条记录映射到cn.itcast.mybatis.po.Orders哪个属性
+		ofType：指定映射到list集合属性中pojo的类型
+		 -->
+     <collection property="categoryseconds" ofType="cn.test.shop.model.Categorysecond">
+     	<id column="csid" property="csid" jdbcType="INTEGER" />
+	    <result column="csname" property="csname" jdbcType="VARCHAR" />
+	    <result column="cid" property="cid" jdbcType="INTEGER" />
+     </collection>
+  </resultMap>
+  
+ <!--  findCategoryVos   SELECT c.*,a.* FROM `category` c, `categorysecond` a WHERE c.cid=a.cid-->
+ <select id="findCategoryVos" resultMap="categoryVos">
+ 	SELECT c.*,a.* FROM `category` c, `categorysecond` a WHERE c.cid=a.cid
+ </select>
+  
+</mapper>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.test.shop.mapping.ProductMapper" >
+  <resultMap id="BaseResultMap" type="cn.test.shop.model.Product" >
+    <id column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="pname" property="pname" jdbcType="VARCHAR" />
+    <result column="market_price" property="marketPrice" jdbcType="DOUBLE" />
+    <result column="shop_price" property="shopPrice" jdbcType="DOUBLE" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="pdesc" property="pdesc" jdbcType="VARCHAR" />
+    <result column="is_hot" property="isHot" jdbcType="INTEGER" />
+    <result column="pdate" property="pdate" jdbcType="TIMESTAMP" />
+    <result column="csid" property="csid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pid, pname, market_price, shop_price, image, pdesc, is_hot, pdate, csid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where pid = #{pid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.test.shop.model.Product" >
+    insert into product (pid, pname, market_price, 
+      shop_price, image, pdesc, 
+      is_hot, pdate, csid
+      )
+    values (#{pid,jdbcType=INTEGER}, #{pname,jdbcType=VARCHAR}, #{marketPrice,jdbcType=DOUBLE}, 
+      #{shopPrice,jdbcType=DOUBLE}, #{image,jdbcType=VARCHAR}, #{pdesc,jdbcType=VARCHAR}, 
+      #{isHot,jdbcType=INTEGER}, #{pdate,jdbcType=TIMESTAMP}, #{csid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.test.shop.model.Product" >
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="pname != null" >
+        pname,
+      </if>
+      <if test="marketPrice != null" >
+        market_price,
+      </if>
+      <if test="shopPrice != null" >
+        shop_price,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+      <if test="pdesc != null" >
+        pdesc,
+      </if>
+      <if test="isHot != null" >
+        is_hot,
+      </if>
+      <if test="pdate != null" >
+        pdate,
+      </if>
+      <if test="csid != null" >
+        csid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="pname != null" >
+        #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="marketPrice != null" >
+        #{marketPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="shopPrice != null" >
+        #{shopPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="pdesc != null" >
+        #{pdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="isHot != null" >
+        #{isHot,jdbcType=INTEGER},
+      </if>
+      <if test="pdate != null" >
+        #{pdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="csid != null" >
+        #{csid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.test.shop.model.Product" >
+    update product
+    <set >
+      <if test="pname != null" >
+        pname = #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="marketPrice != null" >
+        market_price = #{marketPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="shopPrice != null" >
+        shop_price = #{shopPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="pdesc != null" >
+        pdesc = #{pdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="isHot != null" >
+        is_hot = #{isHot,jdbcType=INTEGER},
+      </if>
+      <if test="pdate != null" >
+        pdate = #{pdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="csid != null" >
+        csid = #{csid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.test.shop.model.Product" >
+    update product
+    set pname = #{pname,jdbcType=VARCHAR},
+      market_price = #{marketPrice,jdbcType=DOUBLE},
+      shop_price = #{shopPrice,jdbcType=DOUBLE},
+      image = #{image,jdbcType=VARCHAR},
+      pdesc = #{pdesc,jdbcType=VARCHAR},
+      is_hot = #{isHot,jdbcType=INTEGER},
+      pdate = #{pdate,jdbcType=TIMESTAMP},
+      csid = #{csid,jdbcType=INTEGER}
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  
+ <!--  发现最新的热门产品 ,前10 SELECT * FROM product  WHERE is_hot = 1 ORDER BY pdate DESC LIMIT 10-->
+  <select id="findHot" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    WHERE is_hot = 1 ORDER BY pdate DESC LIMIT 10
+  </select>
+  
+   <!--  发现最新的产品 ,前10 SELECT * FROM product ORDER BY pdate DESC LIMIT 10-->
+  <select id="findNew" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    ORDER BY pdate DESC LIMIT 10
+  </select>
+  
+  <!-- findCountCid  查询总记录数，即查询一级分类下的商品总数 
+  	SELECT COUNT(*) FROM `category` c,`categorysecond` cs, 
+  	`product` p WHERE c.cid=cs.cid AND cs.csid=p.csid AND c.cid=2
+  -->
+   <select id="findCountCid" resultType="int" parameterType="java.lang.Integer" >
+    SELECT COUNT(*) FROM `category` c,`categorysecond` cs, `product` p WHERE c.cid=cs.cid AND cs.csid=p.csid AND c.cid=#{cid,jdbcType=INTEGER}
+  </select>
+  
+  <!--findByPageCid 查询一级分类下的商品信息
+  SELECT p.* FROM category c,categorysecond cs,product p 
+  WHERE c.cid = cs.cid AND cs.csid = p.csid AND c.cid = 1 LIMIT 0 ,8
+    -->
+    <!--注意：如果多个条件传入，  #{}里面的值必须为arg0，之后以此类推arg1-->
+  <select id="findByPageCid" resultMap="BaseResultMap"  >
+  	SELECT p.* FROM category c,categorysecond cs,product p WHERE c.cid = cs.cid AND cs.csid = p.csid AND c.cid = #{arg0} LIMIT #{arg1} ,#{arg2}
+  </select>
+  
+    <!-- findCountCsid  查询总记录数，即查询二级分类下的商品总数 
+  	SELECT COUNT(*) FROM categorysecond cs,product p 
+  	WHERE cs.csid = p.csid AND cs.csid =1
+  -->
+   <select id="findCountCsid" resultType="int" parameterType="java.lang.Integer" >
+   	SELECT COUNT(*) FROM categorysecond cs,product p WHERE cs.csid = p.csid AND cs.csid =#{csid}
+  </select>
+  
+  <!--findByPageCsid 查询二级分类下的商品信息
+ SELECT p.* FROM categorysecond cs,product p WHERE cs.csid = p.csid AND cs.csid =1
+    -->
+    <!--注意：如果多个条件传入，  #{}里面的值必须为arg0，之后以此类推arg1-->
+  <select id="findByPageCsid" resultMap="BaseResultMap"  >
+	SELECT p.* FROM categorysecond cs,product p WHERE cs.csid = p.csid AND cs.csid = #{arg0} LIMIT #{arg1} ,#{arg2}
+  </select>
+  
+</mapper>

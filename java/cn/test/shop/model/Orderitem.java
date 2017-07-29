@@ -11,6 +11,13 @@ public class Orderitem {
 
     private Integer oid;
 
+     //一个订单项包含一种商品
+    private Product product;
+    
+    //一个订单项只属于一个订单
+    private Orders orders;
+
+
     public Integer getItemid() {
         return itemid;
     }
@@ -49,5 +56,21 @@ public class Orderitem {
 
     public void setOid(Integer oid) {
         this.oid = oid;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Orders getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Orders orders) {
+        this.orders = orders;
     }
 }

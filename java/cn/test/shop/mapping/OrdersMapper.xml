@@ -125,4 +125,75 @@
       uid = #{uid,jdbcType=INTEGER}
     where oid = #{oid,jdbcType=INTEGER}
   </update>
+
+ <!-- save -->
+  <resultMap type="cn.test.shop.model.Orders" id="saveOrders">
+    <id column="oid" property="oid" jdbcType="INTEGER" />
+    <result column="total" property="total" jdbcType="DOUBLE" />
+    <result column="ordertime" property="ordertime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="addr" property="addr" jdbcType="VARCHAR" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <collection property="orderitems" ofType="cn.test.shop.model.Orderitem">
+      <id column="itemid" property="itemid" jdbcType="INTEGER" />
+      <result column="count" property="count" jdbcType="INTEGER" />
+      <result column="subtotal" property="subtotal" jdbcType="DOUBLE" />
+      <result column="pid" property="pid" jdbcType="INTEGER" />
+      <result column="oid" property="oid" jdbcType="INTEGER" />
+    </collection>
+  </resultMap>
+  
+  <!--  使用useGeneratedKeys="true" keyProperty="oid"，自增的属性不能在写在insert -->
+  <insert id="save" parameterType="cn.test.shop.model.Orders" useGeneratedKeys="true" keyProperty="oid" >
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="ordertime != null" >
+        ordertime,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="addr != null" >
+        addr,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="total != null" >
+        #{total,jdbcType=DOUBLE},
+      </if>
+      <if test="ordertime != null" >
+        #{ordertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
 </mapper>

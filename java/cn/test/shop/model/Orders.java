@@ -19,6 +19,12 @@ public class Orders {
 
     private Integer uid;
 
+     //一个订单只属于一个用户
+    private User user;
+    
+    //一个订单包含多个订单项
+    private List<Orderitem> orderitems =new ArrayList<Orderitem>();
+
     public Integer getOid() {
         return oid;
     }
@@ -81,5 +87,21 @@ public class Orders {
 
     public void setUid(Integer uid) {
         this.uid = uid;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public ArrayList<Orderitem> getOrderitems() {
+        return (ArrayList<Orderitem>) orderitems;
+    }
+
+    public void setOrderitems(ArrayList<Orderitem> orderitems) {
+        this.orderitems = orderitems;
     }
 }

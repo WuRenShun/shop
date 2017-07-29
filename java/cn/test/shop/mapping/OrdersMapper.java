@@ -14,4 +14,9 @@ public interface OrdersMapper {
     int updateByPrimaryKeySelective(Orders record);
 
     int updateByPrimaryKey(Orders record);
+
+     void save(Orders orders);
+
+    //查找oid
+	int selectLastId();
 }

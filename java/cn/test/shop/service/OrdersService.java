@@ -8,5 +8,11 @@ public interface OrdersService {
 
 	Integer selectLastId() throws Exception;
 
+	PageBean<Orders> findByUid(Integer uid, Integer page) throws Exception;
+
+	Orders findByOid(Integer oid) throws Exception;
+
+	void update(Orders order) throws Exception;
+
 
 }

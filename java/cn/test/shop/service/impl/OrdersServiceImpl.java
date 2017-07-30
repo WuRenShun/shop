@@ -27,6 +27,46 @@ public class OrdersServiceImpl implements OrdersService {
 	}
 
 
+	// 业务层根据用户id查询订单,带分页查询.
+	@Override
+	public PageBean<Orders> findByUid(Integer uid, Integer page) throws Exception {
+			
+		PageBean<Orders> oBean=new PageBean<Orders>();
+		
+		oBean.setPage(page);
+		
+		int limit=5;
+		oBean.setLimit(limit);
+		//总记录数
+		int totalCount=0;
+		totalCount=ordersMapper.findCountByUid(uid);
+		oBean.setTotalCount(totalCount);
+		//总页数
+		int totalPage=0;
+		if(totalCount%limit==0){
+			totalPage = totalCount / limit;
+		}else{
+			totalPage = totalCount / limit +1;
+		}
+		oBean.setTotalPage(totalPage);
+			
+		int begin=(page - 1)*limit;
+		List<Orders> list = ordersMapper.findPageByUid(uid,begin,limit);
+		oBean.setList(list);
+		return oBean;
+			
+	}
+
+	@Override
+	public Orders findByOid(Integer oid) throws Exception {
+		return ordersMapper.findByOid(oid);
+	}
+
+	@Override
+	public void update(Orders order) throws Exception {
+		ordersMapper.updateByPrimaryKeySelective(order);
+	}
+
 
 	
 	

@@ -83,5 +83,8 @@
  <select id="findCategoryVos" resultMap="categoryVos">
  	SELECT c.*,a.* FROM `category` c, `categorysecond` a WHERE c.cid=a.cid
  </select>
+ 
+
+ 
   
 </mapper>

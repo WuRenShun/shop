@@ -25,6 +25,26 @@ public class CategoryServiceImpl implements CategoryService{
 	public List<Category> findCategoryVos() throws Exception {
 		return categoryMapper.findCategoryVos();
 	}
+
+	@Override
+	public Category findByCid(Integer cid) throws Exception {
+		return categoryMapper.selectByPrimaryKey(cid);
+	}
+
+	@Override
+	public void add(Category category) throws Exception {
+		categoryMapper.insertSelective(category);
+	}
+
+	@Override
+	public void delete(Integer cid) throws Exception {
+		categoryMapper.deleteByPrimaryKey(cid);
+	}
+
+	@Override
+	public void update(Category category) throws Exception {
+		categoryMapper.updateByPrimaryKeySelective(category);
+	}
 	
 	
 	

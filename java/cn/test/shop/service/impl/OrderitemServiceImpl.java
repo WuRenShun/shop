@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 
 import cn.test.shop.mapping.OrderitemMapper;
 import cn.test.shop.model.Orderitem;
+import cn.test.shop.model.Orders;
 import cn.test.shop.service.OrderitemService;
+import cn.test.shop.utils.PageBean;
 
 @Service("OrderitemService")
 public class OrderitemServiceImpl implements OrderitemService {
@@ -18,5 +20,7 @@ public class OrderitemServiceImpl implements OrderitemService {
 
 		orderitemMapper.insertSelective(orderItem);
 	}
+
+	
 
 }

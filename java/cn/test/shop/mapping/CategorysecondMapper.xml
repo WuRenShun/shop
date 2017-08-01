@@ -68,4 +68,26 @@
       cid = #{cid,jdbcType=INTEGER}
     where csid = #{csid,jdbcType=INTEGER}
   </update>
+  
+  <!--SELECT COUNT(*) FROM `categorysecond`    -->
+  <select id="findCount" resultType="java.lang.Integer" >
+  	SELECT COUNT(*) FROM `categorysecond`
+  </select>
+  
+  <!-- findByPage -->
+  <select id="findByPage" resultMap="BaseResultMap">
+  	SELECT * FROM  `categorysecond` cate ORDER BY cate.csid DESC LIMIT #{arg0},#{arg1}
+  </select>
+  
+  <!-- deleteCid -->
+  <delete id="deleteCid" parameterType="java.lang.Integer" >
+    delete from categorysecond
+    where cid = #{cid,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- findAll -->
+  <select id="findAll" resultMap="BaseResultMap">
+  	SELECT * FROM  `categorysecond` cate ORDER BY cate.csid DESC 
+  </select>
+  
 </mapper>

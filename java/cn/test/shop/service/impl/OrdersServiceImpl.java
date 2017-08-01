@@ -1,11 +1,14 @@
 package cn.test.shop.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.test.shop.mapping.OrdersMapper;
 import cn.test.shop.model.Orders;
 import cn.test.shop.service.OrdersService;
+import cn.test.shop.utils.PageBean;
 
 @Service("OrdersService")
 public class OrdersServiceImpl implements OrdersService {
@@ -25,8 +28,7 @@ public class OrdersServiceImpl implements OrdersService {
 		// TODO Auto-generated method stub
 		return ordersMapper.selectLastId();
 	}
-
-
+	
 	// 业务层根据用户id查询订单,带分页查询.
 	@Override
 	public PageBean<Orders> findByUid(Integer uid, Integer page) throws Exception {
@@ -66,6 +68,7 @@ public class OrdersServiceImpl implements OrdersService {
 	public void update(Orders order) throws Exception {
 		ordersMapper.updateByPrimaryKeySelective(order);
 	}
+
 
 
 	

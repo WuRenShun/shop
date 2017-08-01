@@ -125,10 +125,10 @@
       uid = #{uid,jdbcType=INTEGER}
     where oid = #{oid,jdbcType=INTEGER}
   </update>
-
- <!-- save -->
+  
+  <!-- save -->
   <resultMap type="cn.test.shop.model.Orders" id="saveOrders">
-    <id column="oid" property="oid" jdbcType="INTEGER" />
+  	<id column="oid" property="oid" jdbcType="INTEGER" />
     <result column="total" property="total" jdbcType="DOUBLE" />
     <result column="ordertime" property="ordertime" jdbcType="TIMESTAMP" />
     <result column="state" property="state" jdbcType="INTEGER" />
@@ -137,39 +137,40 @@
     <result column="addr" property="addr" jdbcType="VARCHAR" />
     <result column="uid" property="uid" jdbcType="INTEGER" />
     <association property="user" javaType="cn.test.shop.model.User">
-      <id column="uid" property="uid" jdbcType="INTEGER" />
-      <result column="username" property="username" jdbcType="VARCHAR" />
-      <result column="password" property="password" jdbcType="VARCHAR" />
-      <result column="name" property="name" jdbcType="VARCHAR" />
-      <result column="email" property="email" jdbcType="VARCHAR" />
-      <result column="phone" property="phone" jdbcType="VARCHAR" />
-      <result column="addr" property="addr" jdbcType="VARCHAR" />
-      <result column="state" property="state" jdbcType="INTEGER" />
-      <result column="code" property="code" jdbcType="VARCHAR" />
-  </association>
+	    <id column="uid" property="uid" jdbcType="INTEGER" />
+	    <result column="username" property="username" jdbcType="VARCHAR" />
+	    <result column="password" property="password" jdbcType="VARCHAR" />
+	    <result column="name" property="name" jdbcType="VARCHAR" />
+	    <result column="email" property="email" jdbcType="VARCHAR" />
+	    <result column="phone" property="phone" jdbcType="VARCHAR" />
+	    <result column="addr" property="addr" jdbcType="VARCHAR" />
+	    <result column="state" property="state" jdbcType="INTEGER" />
+	    <result column="code" property="code" jdbcType="VARCHAR" />
+	</association>
     <collection property="orderitems" ofType="cn.test.shop.model.Orderitem">
-      <id column="itemid" property="itemid" jdbcType="INTEGER" />
-      <result column="count" property="count" jdbcType="INTEGER" />
-      <result column="subtotal" property="subtotal" jdbcType="DOUBLE" />
-      <result column="pid" property="pid" jdbcType="INTEGER" />
-      <result column="oid" property="oid" jdbcType="INTEGER" />
-      <association property="product" javaType="cn.test.shop.model.Product">
-        <id column="pid" property="pid" jdbcType="INTEGER" />
-        <result column="pname" property="pname" jdbcType="VARCHAR" />
-        <result column="market_price" property="marketPrice" jdbcType="DOUBLE" />
-        <result column="shop_price" property="shopPrice" jdbcType="DOUBLE" />
-        <result column="image" property="image" jdbcType="VARCHAR" />
-        <result column="pdesc" property="pdesc" jdbcType="VARCHAR" />
-        <result column="is_hot" property="isHot" jdbcType="INTEGER" />
-        <result column="pdate" property="pdate" jdbcType="TIMESTAMP" />
-        <result column="csid" property="csid" jdbcType="INTEGER" />
-      </association>
+    	<id column="itemid" property="itemid" jdbcType="INTEGER" />
+	    <result column="count" property="count" jdbcType="INTEGER" />
+	    <result column="subtotal" property="subtotal" jdbcType="DOUBLE" />
+	    <result column="pid" property="pid" jdbcType="INTEGER" />
+	    <result column="oid" property="oid" jdbcType="INTEGER" />
+	    <association property="product" javaType="cn.test.shop.model.Product">
+	    	<id column="pid" property="pid" jdbcType="INTEGER" />
+		    <result column="pname" property="pname" jdbcType="VARCHAR" />
+		    <result column="market_price" property="marketPrice" jdbcType="DOUBLE" />
+		    <result column="shop_price" property="shopPrice" jdbcType="DOUBLE" />
+		    <result column="image" property="image" jdbcType="VARCHAR" />
+		    <result column="pdesc" property="pdesc" jdbcType="VARCHAR" />
+		    <result column="is_hot" property="isHot" jdbcType="INTEGER" />
+		    <result column="pdate" property="pdate" jdbcType="TIMESTAMP" />
+		    <result column="csid" property="csid" jdbcType="INTEGER" />
+	    </association>
     </collection>
   </resultMap>
   
-  <!--  使用useGeneratedKeys="true" keyProperty="oid"，自增的属性不能在写在insert -->
+  
+ <!--  使用useGeneratedKeys="true" keyProperty="oid"，自增的属性不能在写在insert -->
   <insert id="save" parameterType="cn.test.shop.model.Orders" useGeneratedKeys="true" keyProperty="oid" >
-    insert into orders
+  	insert into orders
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="total != null" >
         total,
@@ -218,18 +219,19 @@
     </trim>
   </insert>
 
-  <!-- findCountByUid -->
+	
+<!-- findCountByUid -->
 <select id="findCountByUid" parameterType="java.lang.Integer" resultType="int">
-  SELECT COUNT(*) FROM `orders` o WHERE uid=#{uid}
+	SELECT COUNT(*) FROM `orders` o WHERE uid=#{uid}
 </select>
 
-  <!-- findPageByUid -->
-  <select id="findPageByUid" resultMap="saveOrders">
-    SELECT * FROM `orders` o ,`orderitem` t,`product` p WHERE o.oid=t.oid AND p.pid=t.pid AND  uid=#{arg0} ORDER BY o.ordertime DESC LIMIT #{arg1},#{arg2}
-  </select>
+	<!-- findPageByUid -->
+	<select id="findPageByUid" resultMap="saveOrders">
+		SELECT * FROM `orders` o ,`orderitem` t,`product` p WHERE o.oid=t.oid AND p.pid=t.pid AND  uid=#{arg0} ORDER BY o.ordertime DESC LIMIT #{arg1},#{arg2}
+	</select>
   
   <select id="findByOid" parameterType="java.lang.Integer" resultMap="saveOrders">
-    SELECT * FROM `user` u ,`orders` o ,`orderitem` t,`product` p WHERE o.oid=t.oid AND p.pid=t.pid AND u.uid=o.uid AND o.oid=#{oid}
+  	SELECT * FROM `user` u ,`orders` o ,`orderitem` t,`product` p WHERE o.oid=t.oid AND p.pid=t.pid AND u.uid=o.uid AND o.oid=#{oid}
   </select>
 
 </mapper>

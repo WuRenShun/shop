@@ -32,6 +32,12 @@ public interface ProductMapper {
 
 	List<Product> findByPageCsid(Integer csid, int begin, int limit);
 
+	
+	
+	int findCount();
+
+	List<Product> findByPage(int begin, int limit);
+
     
    
 }

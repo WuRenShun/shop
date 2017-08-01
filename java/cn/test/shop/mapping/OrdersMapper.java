@@ -1,5 +1,7 @@
 package cn.test.shop.mapping;
 
+import java.util.List;
+
 import cn.test.shop.model.Orders;
 
 public interface OrdersMapper {
@@ -14,8 +16,8 @@ public interface OrdersMapper {
     int updateByPrimaryKeySelective(Orders record);
 
     int updateByPrimaryKey(Orders record);
-
-     void save(Orders orders);
+    
+    void save(Orders orders);
 
     //查找oid
 	int selectLastId();

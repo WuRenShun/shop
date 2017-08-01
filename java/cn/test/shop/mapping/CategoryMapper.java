@@ -20,4 +20,5 @@ public interface CategoryMapper {
     List<Category> findAll();
     
     List<Category> findCategoryVos();
+
 }

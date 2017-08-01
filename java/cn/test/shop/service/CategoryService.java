@@ -10,4 +10,12 @@ public interface CategoryService {
 
 	List<Category> findCategoryVos() throws Exception;
 
+	Category findByCid(Integer cid) throws Exception;
+
+	void add(Category category) throws Exception;
+
+	void delete(Integer cid) throws Exception;
+
+	void update(Category category) throws Exception;
+
 }

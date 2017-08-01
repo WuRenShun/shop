@@ -188,4 +188,14 @@
 	SELECT p.* FROM categorysecond cs,product p WHERE cs.csid = p.csid AND cs.csid = #{arg0} LIMIT #{arg1} ,#{arg2}
   </select>
   
+  <!-- findCount -->
+  <select id="findCount" resultType="java.lang.Integer"  >
+   	SELECT COUNT(*) FROM product p 
+  </select>
+  
+  <!-- findByPage -->
+  <select id="findByPage" resultMap="BaseResultMap"  >
+	SELECT * FROM product p ORDER BY p.pdate DESC LIMIT #{arg0} ,#{arg1}
+  </select>
+  
 </mapper>

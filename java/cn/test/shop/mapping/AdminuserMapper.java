@@ -14,4 +14,6 @@ public interface AdminuserMapper {
     int updateByPrimaryKeySelective(Adminuser record);
 
     int updateByPrimaryKey(Adminuser record);
+
+	Adminuser login(Adminuser adminuser);
 }

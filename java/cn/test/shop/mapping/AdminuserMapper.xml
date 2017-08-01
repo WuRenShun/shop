@@ -68,4 +68,14 @@
       password = #{password,jdbcType=VARCHAR}
     where uid = #{uid,jdbcType=INTEGER}
   </update>
+  
+<!--   登陆验证 -->
+  <select id="login" resultMap="BaseResultMap" parameterType="cn.test.shop.model.Adminuser" >
+    select 
+    <include refid="Base_Column_List" />
+    from adminuser
+    where username = #{username,jdbcType=VARCHAR} and
+      password = #{password,jdbcType=VARCHAR}
+  </select>
+  
 </mapper>

@@ -17,4 +17,12 @@ public interface ProductService {
 
 	PageBean<Product> findByPageCsid(Integer csid, Integer page) throws Exception;
 
+	PageBean<Product> findByPage(Integer page) throws Exception;
+
+	void save(Product product) throws Exception;
+
+	void update(Product product) throws Exception;
+
+	void delete(Integer pid) throws Exception;
+
 }

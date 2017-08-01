@@ -1,6 +1,7 @@
 package cn.test.shop.service;
 
 import cn.test.shop.model.Orders;
+import cn.test.shop.utils.PageBean;
 
 public interface OrdersService {
 
@@ -13,6 +14,4 @@ public interface OrdersService {
 	Orders findByOid(Integer oid) throws Exception;
 
 	void update(Orders order) throws Exception;
-
-
 }

@@ -57,5 +57,13 @@
 			</property>
 		</bean>
 		
+		<!-- 拦截器
+		<mvc:interceptors>
+			<mvc:interceptor>
+				<mvc:mapping path="/**"/>
+				<bean class="cn.test.email.interceptor.LoginInterceptor"></bean>
+			</mvc:interceptor>
+		</mvc:interceptors> -->
+		
 		
 </beans>

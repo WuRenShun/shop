@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.test.shop.Listener.SessionListener;
 import cn.test.shop.controller.validation.ValidGroup1;
 import cn.test.shop.model.User;
 import cn.test.shop.service.UserService;
@@ -135,6 +137,8 @@ public class UserController {
 	public String user_login(User user,
 			Model model,HttpServletRequest request) throws Exception{
 		
+		HttpSession session=request.getSession();
+		
 		model.addAttribute("userLogin", user);
 		if(user.getUsername()==null||user.getUsername()==""){
 			request.setAttribute("errorLogin", "用户名不能为空！");
@@ -151,7 +155,14 @@ public class UserController {
 			request.setAttribute("errorLogin", "登录失败:用户名或密码错误或用户未激活!");
 			return "user_loginPage";
 		}else{
-			request.getSession().setAttribute("loginSuccess", loginUser);
+			//将用户保存到session中
+			session.setAttribute("loginSuccess", loginUser);
+		}
+		boolean flag=SessionListener.isAlreadyEnter(session,loginUser.getUsername());
+		if(flag){
+			request.setAttribute("error", "该用户已登陆！");
+			session.removeAttribute("loginSuccess");
+			return "error";
 		}
 		return "redirect:index.do";
 		

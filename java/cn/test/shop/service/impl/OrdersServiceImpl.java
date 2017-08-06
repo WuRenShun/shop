@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.test.shop.mapping.OrdersMapper;
+import cn.test.shop.model.Orderitem;
 import cn.test.shop.model.Orders;
 import cn.test.shop.service.OrdersService;
 import cn.test.shop.utils.PageBean;
@@ -67,6 +68,38 @@ public class OrdersServiceImpl implements OrdersService {
 	@Override
 	public void update(Orders order) throws Exception {
 		ordersMapper.updateByPrimaryKeySelective(order);
+	}
+
+	@Override
+	public PageBean<Orders> findAll(Integer page) throws Exception {
+		PageBean<Orders> oBean=new PageBean<Orders>();
+		
+		oBean.setPage(page);
+		
+		int limit=10;
+		oBean.setLimit(limit);
+		//总记录数
+		int totalCount=0;
+		totalCount=ordersMapper.findCount();
+		oBean.setTotalCount(totalCount);
+		//总页数
+		int totalPage=0;
+		if(totalCount%limit==0){
+			totalPage = totalCount / limit;
+		}else{
+			totalPage = totalCount / limit +1;
+		}
+		oBean.setTotalPage(totalPage);
+			
+		int begin=(page - 1)*limit;
+		List<Orders> list = ordersMapper.findPage(begin,limit);
+		oBean.setList(list);
+		return oBean;
+	}
+
+	@Override
+	public List<Orderitem> findOrderItem(Integer oid) throws Exception {
+		return ordersMapper.findOrderItem(oid);
 	}
 
 

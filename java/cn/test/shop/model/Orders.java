@@ -1,6 +1,8 @@
 package cn.test.shop.model;
 
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Orders {
     private Integer oid;
@@ -16,10 +18,10 @@ public class Orders {
     private String phone;
 
     private String addr;
-
+    
     private Integer uid;
 
-     //一个订单只属于一个用户
+    //一个订单只属于一个用户
     private User user;
     
     //一个订单包含多个订单项
@@ -81,27 +83,32 @@ public class Orders {
         this.addr = addr == null ? null : addr.trim();
     }
 
-    public Integer getUid() {
-        return uid;
-    }
+    
+    
+	public User getUser() {
+		return user;
+	}
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public ArrayList<Orderitem> getOrderitems() {
+		return (ArrayList<Orderitem>) orderitems;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public void setOrderitems(ArrayList<Orderitem> orderitems) {
+		this.orderitems = orderitems;
+	}
 
-    public ArrayList<Orderitem> getOrderitems() {
-        return (ArrayList<Orderitem>) orderitems;
-    }
+	public Integer getUid() {
+		return uid;
+	}
 
-    public void setOrderitems(ArrayList<Orderitem> orderitems) {
-        this.orderitems = orderitems;
-    }
+	public void setUid(Integer uid) {
+		this.uid = uid;
+	}
+    
+    
+
 }

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,8 @@ import cn.test.shop.model.Orders;
 import cn.test.shop.model.User;
 import cn.test.shop.service.OrderitemService;
 import cn.test.shop.service.OrdersService;
+import cn.test.shop.utils.PageBean;
+import cn.test.shop.utils.PaymentUtil;
 
 @Controller
 public class OrdersController {
@@ -28,9 +31,11 @@ public class OrdersController {
 	
 	@Autowired
 	private OrderitemService orderitemService;
+
+
 	
 	
-	
+	//提交购物车
 	@RequestMapping("/order_saveOrder")
 	public String order_saveOrder(HttpServletRequest request) throws Exception{
 		//购物车在session中
@@ -61,6 +66,7 @@ public class OrdersController {
 			orderItem.setCount(cartItem.getCount());
 			orderItem.setSubtotal(cartItem.getSubtotal());
 			orderItem.setProduct(cartItem.getProduct());
+			orderItem.setPid(cartItem.getProduct().getPid());
 			orderItem.setOrders(orders);
 
 			ls.add(orderItem);
@@ -84,7 +90,7 @@ public class OrdersController {
 		
 		
 	}
-
+	
 	//我的订单页面显示
 	@RequestMapping("/order_findByUid")
 	public String order_findByUid(HttpServletRequest request,
@@ -175,4 +181,17 @@ public class OrdersController {
 		return "msg";
 		
 	}
+	
+	//确认收货
+	@RequestMapping("/order_updateState")
+	public String order_updateState(Integer oid) throws Exception{
+		Orders orders=ordersService.findByOid(oid);
+		orders.setState(4);
+		ordersService.update(orders);
+		return "redirect:order_findByUid.do?page=1";
+		
+	}
+	
+	
+	
 }

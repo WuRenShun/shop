@@ -234,4 +234,47 @@
   	SELECT * FROM `user` u ,`orders` o ,`orderitem` t,`product` p WHERE o.oid=t.oid AND p.pid=t.pid AND u.uid=o.uid AND o.oid=#{oid}
   </select>
 
+	<!-- findCount -->
+	<select id="findCount"  resultType="int">
+		SELECT COUNT(*) FROM `orders` o 
+	</select>
+	
+	<!--findPage  -->
+	<select id="findPage" resultMap="BaseResultMap">
+		SELECT * FROM `orders` o  ORDER BY o.ordertime DESC LIMIT #{arg0},#{arg1}
+	</select>
+	
+	<resultMap type="cn.test.shop.model.Orderitem" id="saveOrderitem">
+		<id column="itemid" property="itemid" jdbcType="INTEGER" />
+	    <result column="count" property="count" jdbcType="INTEGER" />
+	    <result column="subtotal" property="subtotal" jdbcType="DOUBLE" />
+	    <result column="pid" property="pid" jdbcType="INTEGER" />
+	    <result column="oid" property="oid" jdbcType="INTEGER" />
+	    <association property="product" javaType="cn.test.shop.model.Product">
+	    	<id column="pid" property="pid" jdbcType="INTEGER" />
+		    <result column="pname" property="pname" jdbcType="VARCHAR" />
+		    <result column="market_price" property="marketPrice" jdbcType="DOUBLE" />
+		    <result column="shop_price" property="shopPrice" jdbcType="DOUBLE" />
+		    <result column="image" property="image" jdbcType="VARCHAR" />
+		    <result column="pdesc" property="pdesc" jdbcType="VARCHAR" />
+		    <result column="is_hot" property="isHot" jdbcType="INTEGER" />
+		    <result column="pdate" property="pdate" jdbcType="TIMESTAMP" />
+		    <result column="csid" property="csid" jdbcType="INTEGER" />
+	    </association>
+	    <association property="orders" javaType="cn.test.shop.model.Orders" >
+	    	<id column="oid" property="oid" jdbcType="INTEGER" />
+		    <result column="total" property="total" jdbcType="DOUBLE" />
+		    <result column="ordertime" property="ordertime" jdbcType="TIMESTAMP" />
+		    <result column="state" property="state" jdbcType="INTEGER" />
+		    <result column="name" property="name" jdbcType="VARCHAR" />
+		    <result column="phone" property="phone" jdbcType="VARCHAR" />
+		    <result column="addr" property="addr" jdbcType="VARCHAR" />
+		    <result column="uid" property="uid" jdbcType="INTEGER" />
+	    </association>
+	</resultMap>
+	
+	<!--findOrderItem  -->
+	<select id="findOrderItem" resultMap="saveOrderitem" parameterType="java.lang.Integer">
+		SELECT * FROM `orders` o ,`orderitem` t,`product` p WHERE o.oid=t.oid AND p.pid=t.pid AND t.oid=#{oid}
+	</select>
 </mapper>

@@ -2,6 +2,7 @@ package cn.test.shop.mapping;
 
 import java.util.List;
 
+import cn.test.shop.model.Orderitem;
 import cn.test.shop.model.Orders;
 
 public interface OrdersMapper {
@@ -29,4 +30,11 @@ public interface OrdersMapper {
 	List<Orders> findPageByUid(Integer uid, int begin, int limit);
 
 	Orders findByOid(Integer oid);
+
+	
+	int findCount();
+
+	List<Orders> findPage(int begin, int limit);
+
+	List<Orderitem> findOrderItem(Integer oid);
 }

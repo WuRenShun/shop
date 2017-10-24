@@ -34,7 +34,7 @@ public class MailUtils {
 		Session session=Session.getInstance(props, new Authenticator() {
 			
 			protected javax.mail.PasswordAuthentication getPasswordAuthentication(){
-				return new javax.mail.PasswordAuthentication("refuela@163.com", "0929AbCabc6151a");
+				return new javax.mail.PasswordAuthentication("refuela@163.com", "email password");
 				
 			}
 		});

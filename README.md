@@ -1,6 +1,6 @@
 # shop
 
-网上商城（没有上传前端页面）
+网上商城（没有上传前端页面），使用maven构建的项目
  
 使用的框架：Spring、Spring MVC、mybatis
 

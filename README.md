@@ -1,7 +1,7 @@
 # shop
 
-网上商城
-
+网上商城（没有上传前端页面）
+ 
 使用的框架：spring、springmvc、mybatis
 
 使用数据库：mysql

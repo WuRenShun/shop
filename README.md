@@ -2,7 +2,7 @@
 
 网上商城（没有上传前端页面）
  
-使用的框架：spring、springmvc、mybatis
+使用的框架：Spring、Spring MVC、mybatis
 
 使用数据库：mysql
 
@@ -15,3 +15,5 @@
 3、后台管理商品的增删改
  
 4、具有银行卡付款功能
+
+5、点击商品，可以跳转到商品详情页

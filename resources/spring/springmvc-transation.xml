@@ -26,7 +26,6 @@
 			<tx:attributes>
 				<!-- 传播行为 -->
 				<!-- 其中*为通配符，即代表以save为开头的所有方法，即表示符合此命名规则的方法作为一个事务。 -->
-				<!-- propagation="REQUIRED"代表支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。 -->
 				<tx:method name="save*" propagation="REQUIRED"/>
 				<tx:method name="delete*" propagation="REQUIRED"/>
 				<tx:method name="insert*" propagation="REQUIRED"/>
@@ -38,8 +37,6 @@
 		</tx:advice>
 		<!-- aop -->
 		<!--  配置参与事务的类 -->
-		<!-- pointcut标签配置参与事务的类，由于是在Service中进行数据库业务操作，配的应该是包含那些作为事务的方法的Service类。 -->
-		<!-- aop:advisor标签就是把上面我们所配置的事务管理两部分属性整合起来作为整个事务管理。 -->
 		<aop:config>
 			<aop:advisor advice-ref="txAdvice" pointcut="execution(* cn.test.shop.service.impl.*.*(..))"/>
 		</aop:config>
